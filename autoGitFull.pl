@@ -8,6 +8,7 @@
 unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
 {
 	mkdir '.autogit', 0755 or warn "cannot create .autogit directory: $!\n";
+	print " dir doesn't exist\n";
 }
 
 
@@ -15,10 +16,11 @@ unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
 unless(`ls .autogit` =~ /config\.txt/)#create config file if doesn't exist
 {
 	config();
+	print "could not find config file\n";
 }
 else#check file not currupt
 {
-	open(CONFIG, '<', 'config.txt');
+	open(CONFIG, '<', '.autogit/config.txt');
 	
 	#check remote tag & one or more characters for remote name
 	unless(<CONFIG> =~ /Remote: ./)
@@ -57,7 +59,7 @@ if($CommitMsg =~ /\-set/)
 	exit;
 }
 
-open(CONFIG, "<", 'config.txt') || die "cannot open, error in program for this to happen:\n$!";
+open(CONFIG, "<", '.autogit/config.txt') || die "cannot open, error in program for this to happen:\n$!";
 
 chomp(my $Line = <CONFIG>);
 my $Remote = substr( $Line, 8);# the 8 may be one too great
@@ -74,7 +76,7 @@ system(('git','push', $Remote, $Branch));
 
 sub config
 {
-	open(CONFIG, '>', 'config.txt') || die "cannot create config file: $!\n";
+	open(CONFIG, '>', '.autogit/config.txt') || die "cannot create config file: $!\n";
 	print "enter remote to use: ";
 	print CONFIG "Remote: ".<STDIN>;
 	print "enter branch to use: ";
@@ -82,6 +84,8 @@ sub config
 	print CONFIG "Branch: ".$Line;
 	close CONFIG;
 	chmod 0755, "config.txt";
+	<STDIN>;#debug
+	
 }
 
 
