@@ -2,13 +2,30 @@
 
 #!/usr/bin/perl -w 
 
-
 unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
 {
 	mkdir '.autogit', 0755 or warn "cannot create .autogit directory: $!\n";
 	print " dir doesn't exist\n";
 }
 
+#parse user commit message or supply default
+my $CommitMsg = 'regular commit';#if none supplied
+if(@ARGV)
+{
+	$CommitMsg = '';
+	foreach $Word (@ARGV)
+	{
+		$CommitMsg .= $Word.' ';
+	} 
+	
+}
+
+#check for manual conf flag
+if($CommitMsg =~ /\-set/)
+{
+	config();
+	exit;
+}
 
 unless(`ls .autogit` =~ /config\.txt/)#create config file if doesn't exist
 {
@@ -35,25 +52,6 @@ else#check file not currupt
 		}
 }
 
-
-#parse user commit message or supply default
-my $CommitMsg = 'regular commit';#if none supplied
-if(@ARGV)
-{
-	$CommitMsg = '';
-	foreach $Word (@ARGV)
-	{
-		$CommitMsg .= $Word.' ';
-	} 
-	
-}
-
-#check for manual conf flag
-if($CommitMsg =~ /\-set/)
-{
-	config();
-	exit;
-}
 
 open(CONFIG, "<", '.autogit/config.txt') || die "cannot open, error in program for this to happen:\n$!";
 
