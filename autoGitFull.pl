@@ -1,0 +1,89 @@
+# use -set flag to manual set remote & branch
+#
+
+#!/usr/bin/perl -w 
+
+
+
+unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
+{
+	mkdir '.autogit', 0755 or warn "cannot create .autogit directory: $!\n";
+}
+
+
+
+unless(`ls .autogit` =~ /config\.txt/)#create config file if doesn't exist
+{
+	config();
+}
+else#check file not currupt
+{
+	open(CONFIG, '<', 'config.txt');
+	
+	#check remote tag & one or more characters for remote name
+	unless(<CONFIG> =~ /Remote: ./)
+	{
+		print "config file corrupted, please re-enter data\n\n";
+		config();
+	}
+	
+	#check branch tag & one or more characters for branch name
+	unless(<CONFIG> =~ /Branch: ./)
+	{
+		print "config file corrupted, please re-enter data\n\n";
+		config();
+	}
+	close CONFIG;
+
+}
+
+
+#parse user commit message or supply deflaut
+my $CommitMsg = 'regular commit';#if none supplied
+if(@ARGV)
+{
+	$CommitMsg = '';
+	foreach $Word (@ARGV)
+	{
+		$CommitMsg .= $Word.' ';
+	} 
+	
+}
+
+#check for manual conf flag
+if($CommitMsg =~ /\-set/)
+{
+	config();
+	exit;
+}
+
+open(CONFIG, "<", 'config.txt') || die "cannot open, error in program for this to happen:\n$!";
+
+chomp(my $Line = <CONFIG>);
+my $Remote = substr( $Line, 8);# the 8 may be one too great
+chomp(my $Line = <CONFIG>);
+my $Branch = substr( $Line, 8);#same
+
+
+system('git add *');
+
+system(('git', 'commit', '-m '.$CommitMsg));
+
+system(('git','push', $Remote, $Branch));
+
+
+sub config
+{
+	open(CONFIG, '>', 'config.txt') || die "cannot create config file: $!\n";
+	print "enter remote to use: ";
+	print CONFIG "Remote: ".<STDIN>;
+	print "enter branch to use: ";
+	chomp(my $Line = <STDIN>); 
+	print CONFIG "Branch: ".$Line;
+	close CONFIG;
+	chmod 0755, "config.txt";
+}
+
+
+
+

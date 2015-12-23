@@ -1,0 +1,11 @@
+#!/usr/bin/perl -w
+
+unless(`ls -a`=~/\.git/m)
+{
+	print "the folder .git needs to be created\n";
+}
+unless(`ls .git`=~/config.txt/)
+{
+	print "config.txt needs to be created\n"
+} 
+
