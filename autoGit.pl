@@ -13,5 +13,5 @@ if(@ARGV)
 }
 #$CommitMsg .= "\n";
 
-system('git add *');
+system(('git add *'));
 system(('git', 'commit', '-m '.$CommitMsg))
