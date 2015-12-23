@@ -16,5 +16,5 @@ system('git add *');
 
 system(('git', 'commit', '-m '.$CommitMsg));
 
-system(('git','push', 'origin','master'));
-print "mbhmanning@gmail.com\n";
+system(('git','push', 'origin','master',";","mbhmanning\@gmail.com\n"));
+
