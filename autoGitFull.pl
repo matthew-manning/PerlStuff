@@ -83,8 +83,7 @@ sub config
 	chomp(my $Line = <STDIN>); 
 	print CONFIG "Branch: ".$Line;
 	close CONFIG;
-	chmod 0755, "config.txt";
-		
+	chmod 0755, "config.txt";	
 }
 
 
