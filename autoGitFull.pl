@@ -59,7 +59,7 @@ open(CONFIG, "<", '.autogit/config.txt') || die "cannot open, error in program f
 
 chomp(my $Line = <CONFIG>);
 my $Remote = substr( $Line, 8);
-chomp(my $Line = <CONFIG>);
+chomp($Line = <CONFIG>);
 my $Branch = substr( $Line, 8);
 
 
