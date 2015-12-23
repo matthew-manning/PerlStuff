@@ -1,9 +1,6 @@
 # use -set flag to manual set remote & branch
-#
 
 #!/usr/bin/perl -w 
-
-
 
 unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
 {
@@ -11,36 +8,7 @@ unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
 	print " dir doesn't exist\n";
 }
 
-
-
-unless(`ls .autogit` =~ /config\.txt/)#create config file if doesn't exist
-{
-	print "could not find config file\n";
-	config();
-}
-else#check file not currupt
-{
-	open(CONFIG, '<', '.autogit/config.txt');
-	
-	#check remote tag & one or more characters for remote name
-	unless(<CONFIG> =~ /Remote: ./)
-	{
-		print "config file corrupted, please re-enter data\n\n";
-		config();
-	}
-	
-	#check branch tag & one or more characters for branch name
-	unless(<CONFIG> =~ /Branch: ./)
-	{
-		print "config file corrupted, please re-enter data\n\n";
-		config();
-	}
-	close CONFIG;
-
-}
-
-
-#parse user commit message or supply deflaut
+#parse user commit message or supply default
 my $CommitMsg = 'regular commit';#if none supplied
 if(@ARGV)
 {
@@ -58,6 +26,32 @@ if($CommitMsg =~ /\-set/)
 	config();
 	exit;
 }
+
+unless(`ls .autogit` =~ /config\.txt/)#create config file if doesn't exist
+{
+	print "could not find config file\n";
+	config();
+}
+else#check file not currupt
+{
+	open(CONFIG, '<', '.autogit/config.txt');
+	
+	#check remote tag & one or more characters for remote name
+	unless(<CONFIG> =~ /Remote: ./)
+	{
+		print "config file corrupted, please re-enter data\n\n";
+		config();
+	}
+	else{#check branch tag & one or more characters for branch name
+		unless(<CONFIG> =~ /Branch: ./)
+		{
+			print "config file corrupted, please re-enter data\n\n";
+			config();
+		}
+		close CONFIG;
+		}
+}
+
 
 open(CONFIG, "<", '.autogit/config.txt') || die "cannot open, error in program for this to happen:\n$!";
 

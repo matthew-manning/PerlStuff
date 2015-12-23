@@ -1,8 +1,6 @@
 # use -set flag to manual set remote & branch
-#
 
 #!/usr/bin/perl -w 
-
 
 
 unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
@@ -10,7 +8,6 @@ unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
 	mkdir '.autogit', 0755 or warn "cannot create .autogit directory: $!\n";
 	print " dir doesn't exist\n";
 }
-
 
 
 unless(`ls .autogit` =~ /config\.txt/)#create config file if doesn't exist
@@ -28,19 +25,18 @@ else#check file not currupt
 		print "config file corrupted, please re-enter data\n\n";
 		config();
 	}
-	
-	#check branch tag & one or more characters for branch name
-	unless(<CONFIG> =~ /Branch: ./)
-	{
-		print "config file corrupted, please re-enter data\n\n";
-		config();
-	}
-	close CONFIG;
-
+	else{#check branch tag & one or more characters for branch name
+		unless(<CONFIG> =~ /Branch: ./)
+		{
+			print "config file corrupted, please re-enter data\n\n";
+			config();
+		}
+		close CONFIG;
+		}
 }
 
 
-#parse user commit message or supply deflaut
+#parse user commit message or supply default
 my $CommitMsg = 'regular commit';#if none supplied
 if(@ARGV)
 {
@@ -83,8 +79,7 @@ sub config
 	chomp(my $Line = <STDIN>); 
 	print CONFIG "Branch: ".$Line;
 	close CONFIG;
-	chmod 0755, "config.txt";
-		
+	chmod 0755, "config.txt";	
 }
 
 
