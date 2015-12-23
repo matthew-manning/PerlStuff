@@ -2,7 +2,7 @@
 
 #!/usr/bin/perl -w 
 
-unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
+unless(`ls -a` =~ /\.autogit/)#check for auto git folder
 {
 	mkdir '.autogit', 0755 or warn "cannot create .autogit directory: $!\n";
 	print " dir doesn't exist\n";
