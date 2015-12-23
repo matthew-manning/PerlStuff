@@ -1,6 +1,8 @@
-# use -set flag to manual set remote & branch
-
 #!/usr/bin/perl -w 
+
+#
+# use -set flag to manual set remote & branch
+#
 
 unless(`ls -a` =~ /\.autogit/)#check for auto git folder
 {
