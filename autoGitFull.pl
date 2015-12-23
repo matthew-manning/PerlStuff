@@ -15,8 +15,8 @@ unless(`ls -a` =~ /\.autogit/)#check for auto git foleder
 
 unless(`ls .autogit` =~ /config\.txt/)#create config file if doesn't exist
 {
-	config();
 	print "could not find config file\n";
+	config();
 }
 else#check file not currupt
 {
@@ -62,9 +62,9 @@ if($CommitMsg =~ /\-set/)
 open(CONFIG, "<", '.autogit/config.txt') || die "cannot open, error in program for this to happen:\n$!";
 
 chomp(my $Line = <CONFIG>);
-my $Remote = substr( $Line, 8);# the 8 may be one too great
+my $Remote = substr( $Line, 8);
 chomp(my $Line = <CONFIG>);
-my $Branch = substr( $Line, 8);#same
+my $Branch = substr( $Line, 8);
 
 
 system('git add *');
@@ -84,8 +84,7 @@ sub config
 	print CONFIG "Branch: ".$Line;
 	close CONFIG;
 	chmod 0755, "config.txt";
-	<STDIN>;#debug
-	
+		
 }
 
 
