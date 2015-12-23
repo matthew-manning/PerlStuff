@@ -11,7 +11,9 @@ if(@ARGV)
 	} 
 	
 }
-#$CommitMsg .= "\n";
 
-system(('git add *'));
-system(('git', 'commit', '-m '.$CommitMsg))
+system('git add *');
+$CommitCmd = 'git commit -m'.$CommitMsg;
+
+system('git commit -m first');
+#system(('git commit -m '.$CommitMsg))
