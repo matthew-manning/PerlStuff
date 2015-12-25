@@ -1,0 +1,8 @@
+#!/usr/bin/perl -w
+use Term::ANSIColor qw(:constants);
+
+print "no edit\n";
+
+
+print BOLD, GREEN, "Bold green reset\n", RESET;
+print  RED, "Italic red reset	\n", RESET;
