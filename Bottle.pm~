@@ -15,7 +15,7 @@ sub create
 
 sub fill
 {
-	(@_ == 2)|| warn "call fill() with just one supplied arg";#correct context on @_ ?
+	(@_ == 2)|| warn "call fill() with one supplied arg";#correct context on @_ ?
 	local $Self = shift;
 	$Self->{"contents"} = shift;#{contents} and {"contents"} are same
 }

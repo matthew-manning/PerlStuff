@@ -1,5 +1,7 @@
 package Bottle;
 
+$ClassVar = 10;
+
 sub create
 {
 	my $Invocant = shift;
@@ -25,6 +27,11 @@ sub drink
 	(@_==1)||warn "call drink() void";
 	local $Self = shift;
 	print "You drank ".$Self->{capacity}." litres of ".$Self->{contents}."\n";
+}
+
+sub classData
+{
+	print "Bottle.pm's \$ClassVar is: $ClassVar\n"; 
 }
 
 return 1;
