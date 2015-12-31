@@ -12,12 +12,19 @@ PeerPort => 4000,
 
 )|| die "could not create connection to socket on port 4000:\n$!\n";
 
+print "enter to close:\n";
 
-
-chomp(my $Msg = <STDIN>);
-print "\$msg is $Msg\n";
-print $Sock "$Msg\n";
-
-print "own socket msg is ".<$Sock>."\n";
-
-close $Sock;
+while(1)
+{
+	print ">>>"
+	chomp(my $Msg = <STDIN>);
+	if($Msg)
+	{
+		print $Sock "$Msg\n";
+	}
+	else
+	{
+	close $Sock;
+	exit;
+	}
+}

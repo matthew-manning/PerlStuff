@@ -14,23 +14,15 @@ Listen => 1,
 )|| die "could not create listen socket on port 4000:\n$!\n";
 
 print "listening on port 4000\n";
-$Sock->accept();
+my $ClientSock = $Sock->accept();
 print "accepted a connection\n";
 
 
 while(1)
 {
-	print "enter to check msgs:";
-	<STDIN>;
-	my $Msg = <$Sock>;
-	print "message is:\n$Msg\n";
+	
+	my $Msg = <$ClientSock>;#need to read the connecting socket
+	print "message is:	$Msg\n" if($Msg);
 
 
-	#$Sock->accept();
-	#print "accepted a connection\n";
-	#while(<$Sock>)
-	#{
-	#	print ;
-	#}
-	#print <$Sock>;
 }
