@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w 
+#!/usr/bin/perl -w #this should be removed
 #program prints self without comments
 
 open(SELF_FILE,"<","selfPrint.pl")||die "$!\n"; 
@@ -7,12 +7,12 @@ while(<SELF_FILE>)
 {
 	chomp;
 
-	unless(/#!/)#perserves shebang
-	{
-		@Line = split(/#/);
+	#unless(/#!/)#perserves shebang
+	#{
+		@Line = split((/#/)&&(/^\#!/));
 		$_ = $Line[0];
 		
-	}
+	#}
 	unless(!$_)#unless string is void
 	{
 		print "$_\n";
