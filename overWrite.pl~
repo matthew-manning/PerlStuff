@@ -1,0 +1,9 @@
+#!/usr/bin/perl -w
+
+
+my $Left = chr(0x08);
+print "apple";
+sleep 1;
+print $Left;
+sleep 1;
+print "ads\n";
