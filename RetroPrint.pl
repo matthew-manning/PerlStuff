@@ -24,17 +24,25 @@ sub decodePrint
 	@Chars = split(//,$Line);
 	$SpinCount = 4;
 	
+	my @JunkList = ('a'..'z','A'..'Z',0..9);
+	
+
 	for my $Sym (@Chars)
 	{
-		for(my $i = 0; $i < $SpinCount; $i++)
+	
+		
+		unless($Sym eq "\n")#skips junk print for newlines
 		{
-			$Junk = chr( int(rand(255)) );#print random ascii character
-			$Junk =~ s/^[a-zA-Z0-1]/q/;
-			##^^  have to remove randomly occuring new lines, carrage returns etc
+			for(my $i = 0; $i < $SpinCount; $i++)  
+			{
+				$JunkIdx =  int(rand(61));#for printing random letter/number character
+				$Junk = $JunkList[$JunkIdx];
+				##^^  map number to character
 			
-			print $Junk;
-			Time::HiRes::usleep(90000);#0.09 sec per char
-			print chr(0x08)#cursor left one place 
+				print $Junk;
+				Time::HiRes::usleep(60000);#0.06 sec per char
+				print chr(0x08)#cursor left one place 
+			}
 		}
 		
 		print $Sym;
@@ -50,3 +58,5 @@ sub decodePrint
 
 retroOut "Slow enough?\n";
 decodePrint "how does this look?\n"
+
+
