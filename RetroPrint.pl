@@ -28,9 +28,7 @@ sub decodePrint
 	
 
 	for my $Sym (@Chars)
-	{
-	
-		
+	{	
 		unless($Sym eq "\n")#skips junk print for newlines
 		{
 			for(my $i = 0; $i < $SpinCount; $i++)  
