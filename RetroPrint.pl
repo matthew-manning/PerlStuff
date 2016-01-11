@@ -38,7 +38,8 @@ sub decodePrint
 				##^^  map number to character
 			
 				print $Junk;
-				Time::HiRes::usleep(60000);#0.06 sec per char
+				system('mpg123 click.mp3 2> /dev/null');#click noise, has long delay
+				#Time::HiRes::usleep(60000);#0.06 sec per char
 				print chr(0x08)#cursor left one place 
 			}
 		}

@@ -28,9 +28,7 @@ sub decodePrint
 	
 
 	for my $Sym (@Chars)
-	{
-	
-		
+	{	
 		unless($Sym eq "\n")#skips junk print for newlines
 		{
 			for(my $i = 0; $i < $SpinCount; $i++)  
@@ -40,6 +38,7 @@ sub decodePrint
 				##^^  map number to character
 			
 				print $Junk;
+				system('mpg123 click.mp3 2> /dev/null');#click noise, has some delay
 				Time::HiRes::usleep(60000);#0.06 sec per char
 				print chr(0x08)#cursor left one place 
 			}
