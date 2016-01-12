@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-use Term::Menus;
+use Term::Menus;#cpan
 
 my $Header = "Select mode:";
 my @Options = qw(quiet verbose normal);

@@ -14,4 +14,4 @@ $Header = "Select file:";
 @Options = `ls archieve/`;
 
 $Mode = &pick(\@Options,$Header);
-print "Chosen mode is $Mode\n";
+print "Chosen file is $Mode\n";
