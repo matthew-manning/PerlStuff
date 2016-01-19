@@ -1,5 +1,12 @@
 package PostFixStack;
 
+our %LookUp = (
+	"+" => \&plus,
+	"-" => \&minus,
+	"/" => \&divide,
+	"*" =>\&times,
+	);
+
 sub stack
 {
 	my $Invoc = shift;
@@ -7,9 +14,25 @@ sub stack
 	return bless([], $Class);
 }
 
+sub chooseCmd
+{
+	my $Stack = shift;
+	chomp(my $Cmd = shift);#text str from user
+	
+	unless( $Cmd =~ /+||-||//||*/ )#currently broken syntax, fix
+	{
+		$Stack->add($Cmd);
+	}
+	else
+	{
+		$Stack->&$LookUp{$Cmd};
+	}
+	
+}
+
 sub printStack
 {
-	$Stack = shift;
+	my $Stack = shift;
 		
 	print "\n";
 	for($i = 10; $i > 0; $i--)
