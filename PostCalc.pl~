@@ -1,8 +1,8 @@
 #!/usr/bin/perl -w
 
-use PostFixStack;
+use PostFixStack__OLD;
 
-my $Data = PostFixStack->stack("23 22 56");
+my $Data = PostFixStack__OLD::stack("23 22 56");
 #$Data->add("10 6 7 99");
 #$Data->printStack;
 #$Data->plus;
@@ -14,4 +14,5 @@ while(1)
 {
 	$Data.printStack;
 	my $Input = <STDIN>;
+	$Data->chooseCmd($Input);
 }

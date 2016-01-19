@@ -10,7 +10,7 @@ our %LookUp = (
 sub stack
 {
 	my $Invoc = shift;
-	my $Class = ref($Invoc)||$Invoc;
+	my$Class = ref($Invoc)||$Invoc;
 	return bless([], $Class);
 }
 
@@ -19,13 +19,13 @@ sub chooseCmd
 	my $Stack = shift;
 	chomp(my $Cmd = shift);#text str from user
 	
-	unless( $Cmd =~ /+||-||//||*/ )#currently broken syntax, fix
+	unless( $Cmd =~ /\+||\-||\/||\*/ )#currently broken syntax, fix
 	{
 		$Stack->add($Cmd);
 	}
 	else
 	{
-		$Stack->&$LookUp{$Cmd};
+		#$Stack->&$LookUp{$Cmd};
 	}
 	
 }
@@ -35,9 +35,9 @@ sub printStack
 	my $Stack = shift;
 		
 	print "\n";
-	for($i = 10; $i > 0; $i--)
+	for(my $i = 10; $i > 0; $i--)
 	{
-		$Val = $Stack[$i-1]||" ";#default to single space 
+		my $Val = $Stack[$i-1]||" ";#default to single space 
 		print "$i:\t".$Val."\n";
 	}
 	print "\n";
