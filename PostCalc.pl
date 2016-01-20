@@ -2,7 +2,7 @@
 
 use PostFixStack;
 
-my $Data = PostFixStack->stack("23 22 56");
+my $Data = PostFixStack->stack;
 #$Data->add("10 6 7 99");
 #$Data->printStack;
 #$Data->plus;
@@ -12,7 +12,7 @@ my $Data = PostFixStack->stack("23 22 56");
 
 while(1)
 {
-	$Data.printStack;
+	$Data->printStack;
 	my $Input = <STDIN>;
 	$Data->chooseCmd($Input);
 }

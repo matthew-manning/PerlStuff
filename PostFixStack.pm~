@@ -1,11 +1,14 @@
 package PostFixStack;
 
-#our %LookUp = (
-#	"+" => \&plus,
-#	"-" => \&minus,
-#	"/" => \&divide,
-#	"*" =>\&times,
-#	);
+use warnings;
+
+our %LookUp = (
+	"+" => \&PostFixStack::plus,
+	"-" => \&PostFixStack::minus,
+	"/" => \&PostFixStack::divide,
+	"*" => \&PostFixStack::multiply,
+	);
+
 
 sub stack
 {
@@ -19,19 +22,37 @@ sub chooseCmd
 	my $Stack = shift;
 	chomp(my $Cmd = shift);#text str from user
 	
-	unless( $Cmd =~ /\+||\-||\/||\*/ )#currently broken syntax, fix
+	
+	
+	if($Cmd eq "exit")
+	{
+		exit;
+	}
+	elsif($Cmd eq "del")
+	{
+		$Stack->delete;
+	}
+	elsif($Cmd eq "swap")
+	{
+		$Stack->swap;
+	}
+	elsif ( !($Cmd =~ /\+|\-|\/|\*/) )#add to stack
 	{
 		$Stack->add($Cmd);
-	}
-	else
+	} 
+	else#operators
 	{
-		#$Stack->&$LookUp{$Cmd};
+		print "\$Cmd is: $Cmd\n";
+		my $Function = $LookUp{$Cmd};
+		print "\$Function is: $Function\n";
+		&$Function($Stack);
 	}
 	
 }
 
 sub printStack
 {
+	system("clear");
 	my $Stack = shift;
 		
 	print "\n";
@@ -47,7 +68,7 @@ sub printStack
 sub delete
 {
 	my $Stack = shift;
-	my $Check = pop $Stack;
+	my $Check = pop @Stack;
 	
 	print "stack is empty\n" unless $check;
 }
@@ -66,11 +87,11 @@ sub swap#swaps bottom two items
 }
 sub add#adds items to stack
 {
-	$Stack = $_[0];
-	@Passed = split(" ", $_[1]);#passed as "3 10 5 99 etc", pushed LHS->RHS
-	for $Val (@Passed)
+	my $Stack = $_[0];
+	my @Passed = split(" ", $_[1]);#passed as "3 10 5 99 etc", pushed LHS->RHS
+	for my $Val (@Passed)
 	{
-		push(@Stack, $Val);
+		unshift(@Stack, $Val);
 	}
 }
 
@@ -80,7 +101,8 @@ sub plus
 	my $Val1 = shift(@Stack);
 	my $Val2 = shift(@Stack);
 	
-	if($Val1&&$Val2)#check both exist
+	print "\$Val1 is: $Val1\n\$Val2 is: $Val1\n";
+	if ($Val1&&$Val2)#check both exist
 	{
 		unshift(@Stack, $Val1 + $Val2);
 	}
@@ -106,7 +128,7 @@ sub minus
 	}
 }
 
-sub times
+sub multiply
 {
 	my $Stack = shift;
 	my $Val1 = shift(@Stack);
