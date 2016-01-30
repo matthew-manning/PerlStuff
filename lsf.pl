@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use Term::ANSIColor qw(:constants);
-use List::Util "any";##need to update perl to latest version
+use List::Util "any";##need to run "perlbrew switch perl-5.23.4" in terminal before
 
 my $Passed = $ARGV[0]||"";
 #command line args
@@ -38,22 +38,23 @@ print RESET;
 
 my $FileString = `ls -B $Passed`;
 my @FileArray = split /$/m, $FileString;
-my @FilesToPrints;
+my @FilesToPrint;
 
 
 #push all files(not in dir list) to printing array
 for(my $i = 0; $i < scalar(@FileArray); $i++)
 {
-	if(any(@DirArr) ne $FileArray[$i])
+	if(!(any{$_ eq $FileArray[$i]} @DirArr))
 	{
-		push($FileArr, @FilesToPrint);
+
+		push(@FilesToPrint, $FileArray[$i]);
 	}
 }
 
 
-my $NumFiles = scalar(@FilesToPrint)-1;
+my $NumFiles = scalar(@FilesToPrint);
 
-print BOLD, GREEN, "\nFiles and symlinks: $NumFiles\n", RESET;
+print BOLD, GREEN, "\nFiles: $NumFiles", RESET;
 print GREEN, "@FilesToPrint\n\n\n", RESET;
 
 ###Sym links
