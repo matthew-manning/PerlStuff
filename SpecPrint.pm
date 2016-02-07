@@ -1,6 +1,6 @@
 package SpecPrint;#name must match file name
 
-use parent Exporter;
+use Exporter qw(import);
 
 ####export setup
 our @ISA = (Exporter);
