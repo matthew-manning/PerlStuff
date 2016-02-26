@@ -1,0 +1,3 @@
+this is a file. 
+I will be hidden for normal sight;
+but I can be seen using truesight.
