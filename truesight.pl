@@ -44,7 +44,7 @@ else
 		my $File = $ARGV[0];
 	
 	
-		###get exiting data
+		###get existing data
 		my $Data = `getfattr -n user.truesightdata $File`;
 	
 		$Data =~ s/# file: $File\nuser.truesightdata="//;#removes junk from printed string
@@ -74,8 +74,30 @@ else
 	elsif($ARGV[1] eq '-fa')#append named file
 	{
 	
+				###currently broken
+	
+		local $/ = undef;#read entire file with <>
+		open(FILE, '<', "$ARGV[2]")||die "could not open file: $!\n";
+		my $FileData = <FILE>;
+		
+		my $File = $ARGV[0];
+		
+		##
+		print("File data:\n$FileData");
+		##
+		
+		###get existing data
+		my $Data = `getfattr -n user.truesightdata $File`;
+	
+		$Data =~ s/# file: $File\nuser.truesightdata="//;#removes junk from printed string
+		$Data =~ s/ "\n$//;
+		
+		
+		$FileData = $Data.$FileData;
+		
+		system("setfattr -n user.truesightdata -v \"$FileData\" $File");
 	}
-	else#read mode on passed file
+	else#invalid mode flag
 	{	
 		print "invalid mode flag\n";
 	}
