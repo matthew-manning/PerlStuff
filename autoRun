@@ -1,0 +1,10 @@
+#!/usr/bin/perl -w
+
+##
+#add line:
+#~/generalStuff/perl/autoRun.pl
+#to ~/.profile
+#
+##to have run after login
+
+system("gedit autoRun");
