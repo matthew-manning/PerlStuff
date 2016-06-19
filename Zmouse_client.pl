@@ -34,6 +34,6 @@ while(1)
 	$MY = int(($MY/$ClientHeight)*$HostHeight);
 	
 	$Com =  "xdotool mousemove $MX $MY";
-	print $Sock $Com;
+	print $Sock $Com
 	
 }
