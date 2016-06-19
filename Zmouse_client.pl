@@ -1,4 +1,5 @@
 #!/usr/bin/perl -w
+use Time::HiRes qw | usleep |; ####needs to run with perlbrew
 
 my $HostWidth = 1336; #screen width of remote
 my $HostHeight = 768;
@@ -12,7 +13,7 @@ $| = 1;#autoflush on
 
 
 my $Sock = IO::Socket::INET->new(
-PeerHost => '127.0.0.1',
+PeerHost => '192.168.0.109',
 PeerPort => 4000,
 
 
@@ -20,12 +21,14 @@ PeerPort => 4000,
 
 while(1)
 {
+
+#########################################################movement
 	$_ = `xdotool getmouselocation`;
-	m/x:.../; #x location of mouse
+	m/(x:\d*)/; #x location of mouse
 	my $MX = $1;
-	$MX = substr($MX, 2);# not sure on offset
+	$MX = substr($MX, 2);
 	
-	m/y:.../;
+	m/(y:\d*)/;
 	my $MY = $1;
 	$MY = substr($MY, 2);
 
@@ -34,6 +37,13 @@ while(1)
 	$MY = int(($MY/$ClientHeight)*$HostHeight);
 	
 	$Com =  "xdotool mousemove $MX $MY";
-	print $Sock $Com
+	if($Com)
+	{
+		#print "\$com is $Com\n";
+		print $Sock "$Com\n";#\n required to actually send data
+	}
+###########################################################clicking (LMB)
+	#use xdotool behave call to track clicks
 	
+	usleep(20000); #20ms
 }
