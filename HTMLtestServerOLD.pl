@@ -22,18 +22,15 @@ print "accepted a connection\n";
 #my $ReceivedMsg = <$ClientSock>;#need to read the connecting socket
 #print "message is:	$RecivedMsg\n" if($RecivedMsg);
 
-my $Speed = 4.578898489498;
-
+my $Speed = 4.57;
 
 #while($Speed < 50)#while append to what is already sent
 #{
 	
-	#my $DisplaySpeed = substr($Speed, 0, 4);#three sig fig on speed, is using string context
-											#use a regex to pad front and 	
 	
 		
 	print "got to a\n";
-	my $Page = sprintf("
+	my $Page = "
 	<!DOCTYPE html>
 	<html>
 	<head>
@@ -42,20 +39,16 @@ my $Speed = 4.578898489498;
 	<body>
 	<p>this is a line of text</p>
 	<p><b> LET US BE bold!</b>
-	<p>my velocity is %0.2f m/s/s </p>
-	</body>							  
+	<p>my velocity is $Speed m/s/s </p>#need to format varible's degree of prescion along lines of
+	</body>							   # %0.2f
 	</html>
-	", $Speed);
-	#^^need to format varible's degree of prescion along lines of
-	# %0.2f
-	
+	";
 	print "page is $Page\n";
 
 	print $ClientSock "$Page";
 	print "sent page\n";
-	#sleep 1; 					##################### will break web page, time out??
-
+	sleep 1;
+	$Speed += 0.1;
 #}
 close $ClientSock;
-
 
