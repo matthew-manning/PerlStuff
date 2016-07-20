@@ -39,7 +39,7 @@ while($Speed < 50)#while append to what is already sent
 	<body>
 	<p>this is a line of text</p>
 	<p><b> LET US BE bold!</b>
-	<p>my velocity is $Speed m/s/s </p>#need to format webpage's display of float along lines of
+	<p>my velocity is $Speed m/s/s </p>#need to format varible's degree of prescion along lines of
 	</body>							   # %0.2f
 	</html>
 	";
