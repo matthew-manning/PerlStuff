@@ -7,10 +7,10 @@ $| = 1;#auto flush
 open(FILE, '<', 'file.txt')||die "could not open file.txt:\n$!\n";
 
 my $Sock = IO::Socket::INET->new(
-LocalHost => '127.0.0.1',
-LocalPort => '2400',
+LocalHost => '192.168.0.105',
+LocalPort => '80',
 Listen => '1',
-)||die "could not create socket on port 2400:\n$!\n";
+)||die "could not create socket on port 80:\n$!\n";
 print "listening on port 2400\n";
 
 $ClientSock = $Sock->accept();
@@ -23,3 +23,4 @@ while(<FILE>)
 }
  print "finished sending file\n";
 close FILE;
+close $ClientSock;

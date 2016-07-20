@@ -33,14 +33,16 @@ int main(int argc, char **argv)
 	
 	printf("istructions read are: \n%s\n", Instructions);
 	
-	//scrub non +-<>.,[] characters 
+	//scrub non +-<>.,[] characters, shelve for now
 	
 
 	
 	
-	
 	while (1)
 	{
+		
+	
+		//printf("current program character is %c\n", Instructions[ProgPos]);
 		switch(Instructions[ProgPos]) 
 		{	
 			case '+': Registers[RegPos]++; break;
@@ -71,7 +73,8 @@ int main(int argc, char **argv)
 			case '.': putchar(Registers[RegPos]); break;
 			case ',': Registers[RegPos] = fgetc(stdin); break;
 			
-			case '\0': free(Instructions); printf("\n\nprogram finished without errors/n/n"); return 0;
+			case '\0': free(Instructions); printf("\n\nprogram finished without errors\n\n"); return 0;
+			//default: printf("no action taken\n"); break;
 		
 		}
 		ProgPos++;
