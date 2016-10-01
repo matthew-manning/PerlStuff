@@ -42,10 +42,11 @@ print "connected\n";
 #=end
 while (1)
 {
+	sleep(1);
 	while(<$Sock>)
 	{
 		chomp;
-		print "$_\n";
+		print;
 	}
 }
-close $Sock;
+	close $Sock;
