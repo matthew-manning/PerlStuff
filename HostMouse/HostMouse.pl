@@ -15,6 +15,7 @@ Blocking => 0
 print "connected\n";
 
 my $PixelFactor = 6;#scale of pixels moved per metre moved real space
+my $CyclePeriod = 20;
 
 $OldVal = "";
 while (1)
@@ -25,7 +26,7 @@ while (1)
 		print "$_ aa\n";
 		
 		
-		if( $_ )#ne $OldVal)
+		if( $_ )
 		{
 			@MouseData = split(',',$_);
 			foreach(@MouseData)
@@ -35,12 +36,17 @@ while (1)
 			print "cc\n";
 			
 										
-			$ScaleFactor = ($MouseData[3]/1000)*$PixelFactor;
+			$ScaleFactor = ($CyclePeriod/1000)*$PixelFactor;
 			
-			@DeltaPixels = ($MouseData[0]*$ScaleFactor, $MouseData[1]*$ScaleFactor, $MouseData[2]*$ScaleFactor);
+			@DeltaPixels = (int($MouseData[0]*$ScaleFactor), int($MouseData[1]*$ScaleFactor), int($MouseData[2]*$ScaleFactor));
+			
+			$Command = "xdotool mousemove_relative -- $DeltaPixels[0] $DeltaPixels[1]";
+								 
+			
+			system($Command);
 			
 		}
-		$OldVal = $_; ##act once for each message, is this needed with the "while(<$Sock>)" ?? 
+		
 		
 	}
 }
